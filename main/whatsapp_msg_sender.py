@@ -5,6 +5,8 @@ import webbrowser
 from os import (name, system)
 
 
+
+
 def FinishScript():
     # ! The FinishScript function allows you to
     # ! finish the execution of the program in an
@@ -23,23 +25,10 @@ def ClearScreen():
     system('cls' if name == 'nt' else 'clear')
 
 
-class Tool:
+class Tool():
     def __init__(self):
         self.Message = None
         self.Repeat = None
-
-    def Menu(self):
-        Option = None
-        while Option is None:
-            ClearScreen()
-            print(
-                '\033[1;32;40m== == WhatsApp Spam Bot == ==\n'
-                ' * Developed by Rodolfo Herrera Hernandez\n'
-                ' * https://github.com/codewithrodi/\n'
-                ' * contact@codewithrodi.com\n'
-            )
-            Option = input('\nEnter any letter / word and hit enter to run the tool: \033[1;31;40m')
-        self.Start()
 
     def Start(self):
         ClearScreen()
@@ -51,12 +40,14 @@ class Tool:
         PhoneNumber = input('\nEnter the phone number: \033[1;31;40m').replace(' ', '')
 
         # ! We verify that the phone number is correct, it must have
-        # ! the + sign and it must be less than 16 characters.
-        if not '+' in PhoneNumber: (print(
-            '\n\033[1;32;40mYou must include the + sign to define the country code, example +56 / +1 / +52 / +54.'),
-                                    time.sleep(3), self.Menu())
-        if len(PhoneNumber) >= 16: print('\n\033[1;32;40mNThe phone number cannot be greater than 15.'), time.sleep(
-            3), self.Menu()
+        # ! the + sign, and it must be less than 16 characters.
+        if not '+' in PhoneNumber:
+            (print(
+                '\n\033[1;32;40mYou must include the + sign to define the country code, example +56 / +1 / +52 / +54.'),
+             time.sleep(3), self.Menu())
+        if len(PhoneNumber) >= 16:
+            (print('\n\033[1;32;40mNThe phone number cannot be greater than 15.'),
+             time.sleep(3), self.Menu())
 
         # ! We ask the user for the message to send
         self.Message = input('\n\033[1;32;40mEnter the message you want to send: \033[1;31;40m')
@@ -68,7 +59,7 @@ class Tool:
             '\033[1;32;40mPerfect, we have the number and the message, but you need\nto enter the number of times you '
             'want to repeat, example: [5,000].\nThe message will be sent 5,000 times.')
 
-        # ! We use the replace '.', ',' And '' to avoid this: 5.000 / 5,000 / 5 000
+        # ! We use the replacement '.', ',' And '' to avoid this: 5.000 / 5,000 / 5 000
         self.Repeat = int(
             input('\n\033[1;32;40mNumber of times: \033[1;31;40m').replace('.', '').replace(',', '').replace(' ', ''))
 
@@ -110,13 +101,3 @@ class Tool:
             pyautogui.press('enter')
 
             print(f'\033[1;31;40m[Script] - Message [{Iterator + 1}] sent.')
-
-
-try:
-    Tool().Menu()
-except KeyboardInterrupt:
-    # ! We use a try and hear a KeyBoardInterrupt because if the
-    # ! user wants to force the stop of the script with CTRL + C, the
-    # ! script will be terminated but with an error, with this we avoid that.
-
-    FinishScript()
